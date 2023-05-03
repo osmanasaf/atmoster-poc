@@ -1,12 +1,23 @@
 import { Button, Stack, Text } from '@mantine/core';
+import LoginForm from "../Authentication/Login/LoginForm";
+
+const handleLogin = (email: string, password: string) => {
+    // login operation
+};
+
+const handleRegister = () => {
+    // register operation
+};
+
+
+const handleForgotPassword = () => {
+    // forgot password operation
+};
 
 export function Welcome() {
-  return (
-    <Stack align="center" mt={50}>
-      <Text size="xl" weight={500}>
-        Welcome to Mantine!
-      </Text>
-      <Button>Click the button</Button>
-    </Stack>
-  );
+    return (
+        <div className="App">
+            <LoginForm  onLogin={handleLogin} onRegister={handleRegister} onForgotPassword={handleForgotPassword} />
+        </div>
+    );
 }
