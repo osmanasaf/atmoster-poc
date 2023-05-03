@@ -721,7 +721,7 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@mantine/core@6.0.0":
+"@mantine/core@6.0.0", "@mantine/core@6.0.10":
   "integrity" "sha512-ik2NUAAn9fYcqmOAluGtI9R73ijrr450dZDA+MezKq/dvpUU/Fhl9yXnGoCxxZ5XF6y4i6q07318rdrVturc9w=="
   "resolved" "https://registry.npmjs.org/@mantine/core/-/core-6.0.0.tgz"
   "version" "6.0.0"
@@ -733,7 +733,14 @@
     "react-remove-scroll" "^2.5.5"
     "react-textarea-autosize" "8.3.4"
 
-"@mantine/hooks@6.0.0":
+"@mantine/dates@^6.0.10":
+  "integrity" "sha512-v/yEhYa021FLtV8ccTFCABR81KPM2QlNi3+LpXhCysQe8sL3bmr2sQw5//idjb0qTyiKSEBfsjGxmq02W98e2Q=="
+  "resolved" "https://registry.npmjs.org/@mantine/dates/-/dates-6.0.10.tgz"
+  "version" "6.0.10"
+  dependencies:
+    "@mantine/utils" "6.0.10"
+
+"@mantine/hooks@6.0.0", "@mantine/hooks@6.0.10":
   "integrity" "sha512-boszkajLaA4qvd/ebDhqZBbMuUXlvJv8EM0jTaXz09IaGPachBKG5WKpXEcwWh2qmrUQL6pyhIbLMgPnvwS0QQ=="
   "resolved" "https://registry.npmjs.org/@mantine/hooks/-/hooks-6.0.0.tgz"
   "version" "6.0.0"
@@ -750,6 +757,11 @@
   "integrity" "sha512-1AalSgzINKP4uv1DBTkJe/jh6yGwC2xaCQE4Atlr2bSHiLezYFMy/deGQ8XLFFv2AL0sjvewLW4ernlFujGMZg=="
   "resolved" "https://registry.npmjs.org/@mantine/utils/-/utils-6.0.0.tgz"
   "version" "6.0.0"
+
+"@mantine/utils@6.0.10":
+  "integrity" "sha512-Lo4VUn3+/kqhdjSoPzUFbxXEjMxj5vS4pqRjKRGtJsTwHiMFNcm8u4cIESzMBAEsoaBrI1dGE4WttwOJhjUaSw=="
+  "resolved" "https://registry.npmjs.org/@mantine/utils/-/utils-6.0.10.tgz"
+  "version" "6.0.10"
 
 "@nodelib/fs.scandir@2.1.5":
   "integrity" "sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g=="
@@ -1717,6 +1729,11 @@
     "abab" "^2.0.6"
     "whatwg-mimetype" "^3.0.0"
     "whatwg-url" "^11.0.0"
+
+"dayjs@^1.11.7", "dayjs@>=1.0.0":
+  "integrity" "sha512-+Yw9U6YO5TQohxLcIkrXBeY73WP3ejHWVvx8XCk3gxvQDCTEmS48ZrSZCKciI7Bhl/uCMyxYtE9UqRILmFphkQ=="
+  "resolved" "https://registry.npmjs.org/dayjs/-/dayjs-1.11.7.tgz"
+  "version" "1.11.7"
 
 "debug@^3.2.7":
   "integrity" "sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ=="
