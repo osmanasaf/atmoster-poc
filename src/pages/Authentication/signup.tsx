@@ -1,28 +1,27 @@
 import React, {useState} from "react";
-import {Button, NumberInput, TextInput} from "@mantine/core";
+import {Button, TextInput} from "@mantine/core";
 import {DatePicker} from "@mantine/dates";
 
 const Signup = () => {
 
-    const [birthDay, setBirthDay] = useState<Date | null>(null)
+    const [birthDay, setBirthDay] = useState<Date | null>(null);
     const [name, setName] = useState('');
-    const [surname, setSurname] = useState('')
-    const [email, setEmail] = useState({email: '', error: ''})
-    const [phone, setPhone] = useState('')
-    const [password, setPassword] = useState('')
+    const [surname, setSurname] = useState('');
+    const [email, setEmail] = useState({email: '', error: '', required: true});
+    const [phone, setPhone] = useState('');
+    const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const isValidEmail = (email: string) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
-
     const isValidPhone = (phone: string) => /(^[0\s]?[\s]?)([(]?)([5])([0-9]{2})([)]?)([\s]?)([0-9]{3})([\s]?)([0-9]{2})([\s]?)([0-9]{2})$/g.test(phone);
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
     };
 
     const handleChangeEmail = (event: string) => {
         if (!isValidEmail(event)) {
-            setEmail({email: '', error: 'email is invalid'});
+            setEmail({email: '', error: 'email is invalid', required: true});
         } else {
-            setEmail({email: event, error: ''});
+            setEmail({email: event, error: '', required: true});
         }
     };
     const handleChangePhone = (event: string) => {
