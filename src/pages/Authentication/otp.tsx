@@ -2,11 +2,27 @@ import React, { useState, useEffect, useCallback } from "react";
 import {Button, TextInput} from "@mantine/core";
 
 function OtpInput() {
-    const [otp, setOtp] = useState("");
-    const handleChange = (e : any) => {
-        const { value } = e.target;
-        setOtp(value);
+
+    const [message, setMessage] = useState(false);
+
+
+    const handleClick = (e : any) => {
+        e.currentTarget.disabled = true;
+        console.log('button clicked');
     };
+
+    const [otp, setOtp] = useState("");
+    const handleChange = (e : string) => {
+        setOtp(e);
+        if(e.length==6){
+            setMessage(true);
+        }
+        else{
+            setMessage(false);
+        }
+
+    };
+
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -24,6 +40,11 @@ function OtpInput() {
 
     console.log(timer);
 
+    const resetTimer = function () {
+        if (!timer) {
+            setTimer(120);
+        }
+    };
 
     return (
         <div
@@ -41,20 +62,24 @@ function OtpInput() {
             <TextInput
                 label="Otp"
                 value={otp}
-                onChange={handleChange}
+                onChange={event => handleChange(event.target.value)}
                 required
                 style={{ marginBottom: "8px" }}
+                maxLength={6}
             />
 
-            <div>Time ({timer})</div>
+            <div>Time: {timer} seconds</div>
 
-            <div style={{display: "flex", justifyContent: "space-between", marginTop: "8px"}}>
+            <div style={{display: "flex", justifyContent: "space-around", marginTop: "8px"}}>
                 <div>
-                    <Button type="submit" style={{flexGrow: 1}}>
+                    <Button disabled={!message} onClick={handleClick}    type="submit" style={{flexGrow: 1}}>
                         Verify
                     </Button>
                 </div>
-                <div style={{width: "16px"}}/>
+                <div>
+                    <Button onClick={resetTimer}>Resend</Button>
+                </div>
+
             </div>
         </form>
             </div>
