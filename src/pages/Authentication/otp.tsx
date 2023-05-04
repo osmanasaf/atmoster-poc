@@ -24,11 +24,6 @@ function OtpInput() {
 
     console.log(timer);
 
-    const resetTimer = function () {
-        if (!timer) {
-            setTimer(120);
-        }
-    };
 
     return (
         <div
