@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom
 import LoginForm from "./LoginForm";
 import HomePage from "../Home/HomePage";
 import Signup from "./signup";
+import PositionDetails from "../Position/position-details";
 
 const Auth: React.FC = () => {
     return (
@@ -11,8 +12,10 @@ const Auth: React.FC = () => {
             <Switch>
                 <Route path="/auth/login" component={LoginForm}/>
                 <Route path="/auth/signup" component={Signup}/>
+                <Route path="/auth/signup" component={Signup}/>
                 <Route path="/auth/forgot-password"/>
                 <Redirect to="/auth/login"/>
+                <Route path="/position/detail" component={PositionDetails}/>
             </Switch>
         </Container>
     );
