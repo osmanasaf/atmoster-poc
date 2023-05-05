@@ -6,6 +6,8 @@ import HomePage from "../Home/HomePage";
 import Signup from "./signup";
 import OtpInput from "./otp";
 import PositionDetails from "../Position/position-details";
+import BayiCalisanlari from "../bayi-calisanlari";
+import HrUser from "../Home/hr-user";
 
 const Auth: React.FC = () => {
     return (
@@ -16,7 +18,10 @@ const Auth: React.FC = () => {
                 <Route path="/auth/otp" component={OtpInput}/>
                 <Route path="/auth/forgot-password"/>
                 <Redirect to="/auth/login"/>
-                <Route path="/position/detail" component={PositionDetails}/>
+                <Route path="/position/detail/:id" component={PositionDetails}/>
+                <Route path="/bayi-calisanlari" component={BayiCalisanlari}/>
+                <Route path="/hr-user" component={HrUser}/>
+
             </Switch>
         </Container>
     );

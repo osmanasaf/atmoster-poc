@@ -7,7 +7,7 @@ const PositionDetails = () => {
     const positionID = url.split('/')[3];
 
     useEffect(() => {
-        getPosition(positionID).then((res) => {
+        getPosition(Number(positionID)).then((res) => {
             const position = res
         })
     })
