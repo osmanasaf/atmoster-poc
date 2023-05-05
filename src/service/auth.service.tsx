@@ -1,14 +1,19 @@
 import {get, post} from "./base.service";
 
-const authUrl = 'auth'
+const authUrl = 'posts'
 
-export const getRequest = (url: string, param?: any) => {
-    return get(authUrl + url, param);
+export const getRequest = (param?: any) => {
+    return get(authUrl, param);
 }
 
-export const postRequest = (url: string, body?: any, param?: any) => {
-    return post(url, body, param);
+export const postRequest = (body?: any, param?: any) => {
+    return post('url', body, param);
 }
+
+export const getPosition = (positionID: string) => {
+    return get(authUrl, positionID);
+}
+
 
 
 
