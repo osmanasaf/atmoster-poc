@@ -1,14 +1,22 @@
 import React, { useState, useEffect, useCallback } from "react";
 import {Button, TextInput} from "@mantine/core";
+import VerifyOtp from "../../dto/VerifyOtp";
+import {verifyOtp} from "../../service/auth.service";
+import {useHistory} from "react-router-dom";
 
 function OtpInput() {
-
     const [message, setMessage] = useState(false);
+    const email = sessionStorage.getItem("email");
+    const password = sessionStorage.getItem("password");
+    const history = useHistory();
 
-
-    const handleClick = (e : any) => {
+    const handleClick = async (e: any) => {
         e.currentTarget.disabled = true;
-        console.log('button clicked');
+        const credentials: VerifyOtp = {email, password, otp};
+        const response = await verifyOtp(credentials);
+        sessionStorage.clear();
+        localStorage.setItem("token", response.data.token);
+        history.push("/")
     };
 
     const [otp, setOtp] = useState("");

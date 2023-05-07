@@ -8,6 +8,7 @@ import OtpInput from "./otp";
 import PositionDetails from "../Position/position-details";
 import BayiCalisanlari from "../bayi-calisanlari";
 import HrUser from "../Home/hr-user";
+import ForgotPasswordForm from "./ForgotPassword";
 
 const Auth: React.FC = () => {
     return (
@@ -16,19 +17,18 @@ const Auth: React.FC = () => {
                 <Route path="/auth/login" component={LoginForm}/>
                 <Route path="/auth/signup" component={Signup}/>
                 <Route path="/auth/otp" component={OtpInput}/>
-                <Route path="/auth/forgot-password"/>
+                <Route path="/auth/forgot-password" component={ForgotPasswordForm}/>
                 <Redirect to="/auth/login"/>
                 <Route path="/position/detail/:id" component={PositionDetails}/>
                 <Route path="/bayi-calisanlari" component={BayiCalisanlari}/>
                 <Route path="/hr-user" component={HrUser}/>
-
             </Switch>
         </Container>
     );
 };
 
 const App: React.FC = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const handleLogin = (email: string, password: string) => {
         //  check user is logged in or not
