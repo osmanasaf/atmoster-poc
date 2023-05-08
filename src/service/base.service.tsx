@@ -27,7 +27,7 @@ const baseServicePosition = axios.create({
 baseService.interceptors.response.use(
     function (response) {
         // Return unwrapped response ---the "body" of it
-        return response;
+        return response.data;
     },
     function (error) {
         // TODO: Do proper error handling here (logout user, etc)
