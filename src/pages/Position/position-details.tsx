@@ -1,6 +1,6 @@
 import {Text} from "@mantine/core";
 import React, {useEffect} from "react";
-import {getAllPosition} from "../../service/auth.service";
+import {getAllPosition} from "../../service/position.service";
 
 const PositionDetails = () => {
     const url = window.location.pathname;

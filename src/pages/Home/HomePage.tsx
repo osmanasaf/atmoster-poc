@@ -4,7 +4,9 @@ import React from "react";
 import {NavbarLinks} from "../navbar/NavbarLinks";
 import {User} from "../navbar/User";
 import HrUser from "./hr-user";
-
+import AdminUser from "./admin-user";
+import TechnicalUser from "./technical-user";
+import UcretlendirmePersonelUser from "./ucretlendirme-personel-user";
 
 
 const HomePage = () => {
@@ -12,6 +14,7 @@ const HomePage = () => {
     const theme = useMantineTheme();
     const [opened, setOpened] = useState(false);
 
+    let userRole = localStorage.getItem('role')
     return (
         <AppShell
             styles={{
@@ -55,7 +58,10 @@ const HomePage = () => {
             }
         >
             <div>
-                <HrUser></HrUser>
+                {userRole === 'ADMIN' ? <AdminUser></AdminUser> : false}
+                {userRole === 'HR' ? <HrUser></HrUser> : false}
+                {userRole === 'PRICING' ? <UcretlendirmePersonelUser></UcretlendirmePersonelUser> : false}
+                {userRole === 'TECHNICAL' ? <TechnicalUser></TechnicalUser> : false}
             </div>
         </AppShell>
     );
