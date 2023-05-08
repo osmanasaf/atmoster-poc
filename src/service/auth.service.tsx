@@ -33,6 +33,12 @@ export const getRequest = (param?: any) => {
     return get(authUrl, param);
 }
 
+export const adminRegister = () => {
+
+}
+
+
+
 export const postRequest = (body?: any, param?: any) => {
     return post('url', body, param);
 }
