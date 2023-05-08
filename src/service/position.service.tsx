@@ -2,8 +2,8 @@ import {getPosition, postPosition, putPositions} from "./base.service";
 import {ApproveDto, PositionDto} from "../dto/PositionDto";
 
 
-export const getAllPosition = (positionID: string) => {
-    return getPosition('position/all-positions', positionID);
+export const getAllPosition = () => {
+    return getPosition('position/all-positions');
 }
 
 export const getIdPosition = (positionId: string) => {
@@ -21,14 +21,14 @@ export const openPositions = () => {
     return getPosition('position/all-open-positions');
 }
 
-export const getPositionApplies = (positionID: string | undefined) => {
+export const getPositionApplies = (positionID: string) => {
     return getPosition(`position/id/${positionID}/applies`)
 }
 export const getPositionAppliesFinancial = (positionID: string) => {
     return getPosition(`position/id/${positionID}/applies/financial`)
 }
 
-export const getPositionAppliesTechnical = (positionID: string) => {
+export const getPositionAppliesTechnical = (positionID: string | undefined) => {
     return getPosition(`position/id/${positionID}/applies/technical`)
 }
 
@@ -42,4 +42,9 @@ export const updateUserTechnical = (userId: string, approve: ApproveDto) => {
 
 export const updateUserUcretlendirmePersonel = (userId: string, approve: ApproveDto) => {
     return putPositions(`position/position-apply/id/${userId}/finance-approve`, approve)
+}
+
+
+export const updatePositionStatus = (positionId: string, status: string) => {
+    return putPositions(`position/id/${positionId}/status/${status}`)
 }

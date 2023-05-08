@@ -3,7 +3,7 @@ import {Button, Table, Text, TextInput} from '@mantine/core';
 import React from "react";
 import {useHistory} from "react-router-dom";
 import {PositionDto, PositionStatusEnum, WorkTypeEnum} from "../../dto/PositionDto";
-import {createPosition, openPositions} from "../../service/position.service";
+import {createPosition, getAllPosition, openPositions, updatePositionStatus} from "../../service/position.service";
 import {Modal} from "antd";
 
 const AdminUser = () => {
@@ -17,16 +17,14 @@ const AdminUser = () => {
     const [workType, setWorkType] = useState<WorkTypeEnum>();
 
     useEffect(() => {
-        if (position.length === 0) {
-            getPositions()
-        }
-    });
-
+        getAllPosition().then((res: any) => {
+            setPosition(res.data)
+        });
+    }, [])
 
     function getPositions() {
-        openPositions().then((res: any) => {
+        getAllPosition().then((res: any) => {
             setPosition(res.data)
-            console.log(position);
         });
     }
 
@@ -59,14 +57,19 @@ const AdminUser = () => {
                 id: ''
             }
             createPosition(positionDto).then((res: any) => {
-                console.log(res);
                 getPositions()
+                setIsModalVisible(false)
             })
         }
     }
 
     function roleChange(event: any) {
         setWorkType(event)
+    }
+
+    function changePositionStatus(positionId: string, positionStatus: string) {
+        updatePositionStatus(positionId, positionStatus).then((res: any) => getPositions())
+
     }
 
     return (
@@ -100,6 +103,11 @@ const AdminUser = () => {
                     <tr key={item.id}>
                         <td onClick={() => positionDetails(item.id)}>{item.name}</td>
                         <td>{item.applicantCount}</td>
+                        <Button type="submit" style={{backgroundColor: item.status === 'OPEN' ? "red" : "green"}}
+                                onClick={() => changePositionStatus(item.id, item.status === 'OPEN' ? 'CLOSED' : 'OPEN')}
+                        >
+                            {item.status === 'OPEN' ? "Pozisyonu Kapat" : "Pozisyonu Aç"}
+                        </Button>
                     </tr>
                 ))}
                 </tbody>

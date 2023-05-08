@@ -1,11 +1,17 @@
 import React, {useEffect, useState} from "react";
 import {Button, Switch, Table, Text, TextInput} from "@mantine/core";
 import {Modal} from 'antd'
-import {ApprovalStatus, ApproveDto, PositionsApplyDto} from "../../dto/PositionDto"
-import {getPositionApplies, openPositions, updateUserTechnical} from "../../service/position.service";
+import {ApprovalStatus, ApproveDto, PositionDto, PositionsApplyDto} from "../../dto/PositionDto"
+import {
+    getPositionApplies,
+    getPositionAppliesTechnical,
+    openPositions,
+    updateUserHr,
+    updateUserTechnical
+} from "../../service/position.service";
 
 const TechnicalUser = () => {
-    const [position, setPosition] = useState<PositionsApplyDto[]>([]);
+    const [position, setPosition] = useState<PositionDto[]>([]);
     const [positionDetail, setPositionDetail] = useState<PositionsApplyDto[]>();
     const [recourseDetail, setRecourseDetail] = useState<PositionsApplyDto>();
     const [isRecoursesModalVisible, setRecoursesModalVisible] = useState(false);
@@ -15,13 +21,13 @@ const TechnicalUser = () => {
     const [approveUser, setApproveUser] = useState<ApproveDto>()
 
     useEffect(() => {
-        openPositions().then((res: any) => setPosition(res));
+        openPositions().then((res: any) => setPosition(res.data));
     }, [])
 
     function positionDetails(positionId: string) {
         setRecoursesModalVisible(true)
-        getPositionApplies(positionId).then((res: any) => {
-            setPositionDetail(res)
+        getPositionAppliesTechnical(positionId).then((res: any) => {
+            setPositionDetail(res.data)
         })
     }
 
@@ -51,6 +57,8 @@ const TechnicalUser = () => {
         setApproveUser({status: changeSwitch ? ApprovalStatus.APPROVED : ApprovalStatus.REJECTED, message: explanation})
         if (recourseDetail && approveUser) {
             updateUserTechnical(recourseDetail.id, approveUser).then((res: any) => {
+                setIsRecourseDetailModalVisible(false)
+                openPositions().then((res: any) => setPosition(res.data));
             })
         }
     }
@@ -65,14 +73,14 @@ const TechnicalUser = () => {
                 <thead>
                 <tr>
                     <th>Pozisyon Adı</th>
-                    <th>İK Aşamasına Geçmiş Başvuru Sayısı</th>
+                    <th>Başvuru Sayısı</th>
                 </tr>
                 </thead>
                 <tbody>
-                {position?.map((item) => (
+                {position.map((item) => (
                     <tr key={item.id}>
                         <td onClick={() => positionDetails(item.id)}>{item.name}</td>
-                        <td>{item.hrApprovalStatus}</td>
+                        <td>{item.applicantCount}</td>
                     </tr>
                 ))}
                 </tbody>
@@ -83,19 +91,23 @@ const TechnicalUser = () => {
                 <tr>
                     <th>İsim</th>
                     <th>Soyisim</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
                 {positionDetail?.map((item) => (
                     <tr key={item.id}>
-                        <td onClick={() => recourseDetails(item.id)}>{item.email}</td>
+                        <td>{item.email}</td>
                         <td>{item.surname}</td>
+                        <td><Button type="submit" onClick={() => recourseDetails(item.id)}>
+                            Detay
+                        </Button></td>
                     </tr>
                 ))}
                 </tbody>
             </Modal>
 
-            <Modal title="Başvuran Detay" visible={isRecourseDetailModalVisible} onOk={recourseSave}
+            <Modal title="Başvuran Detay" visible={isRecourseDetailModalVisible} onOk={saveUser}
                    onCancel={handleHide}>
                 <thead>
                 <tr>
@@ -110,13 +122,10 @@ const TechnicalUser = () => {
                     <td>{recourseDetail?.surname}</td>
                     <td>{recourseDetail?.phone}</td>
                 </tr>
-
-
-                <form
-                    style={{display: "flex", flexDirection: "column", maxWidth: "300px"}}
-                >
+                </tbody>
+                <div>
+                    <label htmlFor=""> Onay/Red</label>
                     <Switch checked={changeSwitch} onChange={handleSwitchChange}/>
-
                     <TextInput
                         label="Explanation"
                         value={explanation}
@@ -124,13 +133,7 @@ const TechnicalUser = () => {
                         required
                         style={{marginBottom: "8px"}}
                     />
-                </form>
-
-                <div style={{display: "flex", justifyContent: "center"}}>
-                    <Button onClick={saveUser} type="submit">Kaydet</Button>
                 </div>
-
-                </tbody>
             </Modal>
         </div>
 

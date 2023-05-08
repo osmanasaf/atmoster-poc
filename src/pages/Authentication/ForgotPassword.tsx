@@ -3,6 +3,8 @@ import { TextInput, Button, Text } from "@mantine/core";
 import {changeForgotPassword, forgotPassword} from "../../service/auth.service";
 import ChangePasswordDto from "../../dto/ChangePasswordDto";
 import {useHistory} from "react-router-dom";
+import {forgotPassword} from "../../service/auth.service";
+import {changeForgotPassword} from "../../service/user.service";
 
 const ForgotPasswordForm: React.FC = () => {
     const history = useHistory();
@@ -23,7 +25,7 @@ const ForgotPasswordForm: React.FC = () => {
             console.log(response);
             setToken(String(isCodeSent));
         } catch (error) {
-            if(error && error !== null){
+            if(error){
                 setErrorMessage(String(error));
             }else{
                 setErrorMessage("Şifre Sıfırlama Kodu Gönderilemedi!");
