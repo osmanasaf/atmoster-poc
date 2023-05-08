@@ -20,7 +20,7 @@ export const register = (credentials: RegisterCredentials) => {
         });
 };
 export const forgotPassword = (email: string) =>
-    get("/auth/forgot-and-change-password-link-first-step", {email});
+    post("/auth/forgot-and-change-password-link-first-step?username=" + email);
 
 export const changeForgotPassword = (credentials: { newPassword: string }, token: string) =>
     post("change-password/token/" + token, {credentials});

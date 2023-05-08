@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { TextInput, Button, Text } from "@mantine/core";
 import {changeForgotPassword, forgotPassword} from "../../service/auth.service";
 import ChangePasswordDto from "../../dto/ChangePasswordDto";
+import {useHistory} from "react-router-dom";
 
 const ForgotPasswordForm: React.FC = () => {
+    const history = useHistory();
     const [email, setEmail] = useState("");
     const [verificationCode, setVerificationCode] = useState("");
     const [newPassword, setNewPassword] = useState("");
@@ -17,10 +19,15 @@ const ForgotPasswordForm: React.FC = () => {
         event.preventDefault();
         try {
             var response = await forgotPassword(email);
-            setToken(response.data.token);
             setIsCodeSent(true);
+            console.log(response);
+            setToken(String(isCodeSent));
         } catch (error) {
-            setErrorMessage(String(error));
+            if(error && error !== null){
+                setErrorMessage(String(error));
+            }else{
+                setErrorMessage("Şifre Sıfırlama Kodu Gönderilemedi!");
+            }
         }
     };
 
@@ -30,6 +37,10 @@ const ForgotPasswordForm: React.FC = () => {
             const credentials: { newPassword: string } = { newPassword}
             await changeForgotPassword(credentials, token);
             setIsPasswordChanged(true);
+            setTimeout(() => {
+                history.push("/login");
+            }, 3000);
+
         } catch (error) {
             setErrorMessage(String(error));
         }
