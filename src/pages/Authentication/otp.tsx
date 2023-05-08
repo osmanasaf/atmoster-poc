@@ -30,7 +30,6 @@ function OtpInput() {
         var responseString = String(response);
         if(responseString.startsWith('ey')){
             setLocalStorage(responseString);
-
         }else{
             alert("Invalid OTP");
         }
@@ -54,7 +53,7 @@ function OtpInput() {
         localStorage.setItem("role", decodedToken.role);
         localStorage.setItem("email", decodedToken.sub);
         sessionStorage.clear();
-        history.push("")
+        history.push("/")
     }
 
     const [otp, setOtp] = useState("");

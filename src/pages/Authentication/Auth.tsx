@@ -16,6 +16,7 @@ const Auth: React.FC = () => {
     return (
         <Container style={{display: "flex", justifyContent: "center"}}>
             <Switch>
+                <Route path="/home" component={HomePage}/>
                 <Route path="/auth/login" component={LoginForm}/>
                 <Route path="/auth/signup" component={Signup}/>
                 <Route path="/auth/otp" component={OtpInput}/>
@@ -32,16 +33,13 @@ const Auth: React.FC = () => {
 };
 
 const App: React.FC = () => {
-    const token = localStorage.getItem("token");
-    const [isLoggedIn, setIsLoggedIn] = useState(String(token) !== "null");
+    const isLoggedIn = () => {
+        const token = localStorage.getItem('token');
+        return token;
+    };
 
     const handleLogin = (email: string, password: string) => {
-        var token = localStorage.getItem("token");
-        if(token){
-            setIsLoggedIn(true);
-        }else{
-            setIsLoggedIn(false);
-        }
+
     };
 
     return (
@@ -50,7 +48,7 @@ const App: React.FC = () => {
                 <Switch>
                     <Route path="/auth" component={Auth}/>
                     <Route path="/">
-                        {isLoggedIn ? <HomePage/> : <Redirect to="/auth/login"/>}
+                        {isLoggedIn() ? <HomePage/> : <Redirect to="/auth/login"/>}
                     </Route>
                 </Switch>
             </div>
