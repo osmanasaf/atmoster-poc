@@ -11,15 +11,18 @@ const LoginForm: React.FC = () => {
     const history = useHistory();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        try {
+            e.preventDefault();
             const credentials: LoginCredentials = {email, password};
-            await login(credentials);
-            sessionStorage.setItem("email", email);
-            sessionStorage.setItem("password", password);
-            history.push("/auth/otp")
-        } catch (error) {
-            console.error(error);
-        }
+            login(credentials).then(r =>  {
+                sessionStorage.setItem('operation', 'login');
+                sessionStorage.setItem("email", email);
+                sessionStorage.setItem("password", password);
+                history.push("/auth/otp")
+            }).catch(
+                error => {
+                    alert("Invalid credentials");
+                }
+            );
     };
 
     const redirectToRegister = () => {

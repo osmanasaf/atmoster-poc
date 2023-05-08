@@ -1,5 +1,5 @@
 interface VerifyOtp {
-    email: string;
+    username: string;
     password: string;
     otp: string;
 }

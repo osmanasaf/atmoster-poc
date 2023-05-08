@@ -1,23 +1,61 @@
 import React, { useState, useEffect, useCallback } from "react";
 import {Button, TextInput} from "@mantine/core";
 import VerifyOtp from "../../dto/VerifyOtp";
-import {verifyOtp} from "../../service/auth.service";
+import {verifyOtp, verifyRegister} from "../../service/auth.service";
 import {useHistory} from "react-router-dom";
+import jwt_decode from "jwt-decode";
+
+interface DecodedToken {
+    sub: string;
+    iat: number;
+    exp: number;
+    role: string;
+}
 
 function OtpInput() {
     const [message, setMessage] = useState(false);
-    const email = sessionStorage.getItem("email");
-    const password = sessionStorage.getItem("password");
+    const operation = sessionStorage.getItem("operation");
     const history = useHistory();
 
     const handleClick = async (e: any) => {
         e.currentTarget.disabled = true;
-        const credentials: VerifyOtp = {email, password, otp};
-        const response = await verifyOtp(credentials);
-        sessionStorage.clear();
-        localStorage.setItem("token", response.data.token);
-        history.push("/")
+        operation === "login" ? await loginOperation() : await registerOperation();
     };
+
+    async function loginOperation() {
+        const email = sessionStorage.getItem("email");
+        const password = sessionStorage.getItem("password");
+        const credentials: VerifyOtp = {username: email, password: password, otp: otp};
+        const response = await verifyOtp(credentials);
+        var responseString = String(response);
+        if(responseString.startsWith('ey')){
+            setLocalStorage(responseString);
+
+        }else{
+            alert("Invalid OTP");
+        }
+    }
+
+    async function registerOperation() {
+        const mail = sessionStorage.getItem("registerMail");
+        const response = await verifyRegister(mail, otp);
+        var responseString = String(response);
+        if(responseString.startsWith('ey')){
+            setLocalStorage(responseString);
+
+        }else{
+            alert("Invalid OTP");
+        }
+    }
+
+    const setLocalStorage= (token: string) => {
+        const decodedToken: DecodedToken = jwt_decode(token)
+        localStorage.setItem("token", token);
+        localStorage.setItem("role", decodedToken.role);
+        localStorage.setItem("email", decodedToken.sub);
+        sessionStorage.clear();
+        history.push("")
+    }
 
     const [otp, setOtp] = useState("");
     const handleChange = (e : string) => {
@@ -34,8 +72,6 @@ function OtpInput() {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
-
         console.log(otp);
     };
 
