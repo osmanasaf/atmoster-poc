@@ -20,5 +20,10 @@ export const getRecourseDetail = (userId: number) => {
 }
 
 
+export const adminRegister = () => {
+
+}
+
+
 
 
