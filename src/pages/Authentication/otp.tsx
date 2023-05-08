@@ -16,7 +16,7 @@ interface DecodedToken {
 function OtpInput() {
     const [message, setMessage] = useState(false);
     const history = useHistory();
-    const operation = sessionStorage.getItem("operation");
+    let operation = sessionStorage.getItem("operation");
 
     const handleClick = async (e: any) => {
         e.currentTarget.disabled = true;
