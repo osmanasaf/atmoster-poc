@@ -28,12 +28,15 @@ const Auth: React.FC = () => {
 };
 
 const App: React.FC = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("token"));
 
     const handleLogin = (email: string, password: string) => {
-        //  check user is logged in or not
-        //
-        setIsLoggedIn(true);
+        var token = localStorage.getItem("token");
+        if(token){
+            setIsLoggedIn(true);
+        }else{
+            setIsLoggedIn(false);
+        }
     };
 
     const handleLogout = () => {

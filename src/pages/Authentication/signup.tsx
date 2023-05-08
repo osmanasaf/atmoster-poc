@@ -1,9 +1,12 @@
 import React, {useState} from "react";
 import {Button, TextInput} from "@mantine/core";
 import {DatePicker} from "@mantine/dates";
-import {AdminRegisterDto} from "../../util/auth";
+import {isEmailExist, register} from "../../service/auth.service";
+import RegisterCredentials from "../../dto/RegisterCredentials";
+import {useHistory} from "react-router-dom";
 
 const Signup = () => {
+    const history = useHistory();
 
     const [birthDay, setBirthDay] = useState<Date | null>(null);
     const [name, setName] = useState('');
@@ -12,12 +15,37 @@ const Signup = () => {
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const [register, setRegister] = useState<AdminRegisterDto>()
     const isValidEmail = (email: string) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
     const isValidPhone = (phone: string) => /(^[0\s]?[\s]?)([(]?)([5])([0-9]{2})([)]?)([\s]?)([0-9]{3})([\s]?)([0-9]{2})([\s]?)([0-9]{2})$/g.test(phone);
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        const response = await isEmailExist(email.email);
+        if(response?.exist){
+            setEmail({...email, error: 'email is already exist'});
+        }else{
+            const credentials: RegisterCredentials = {
+                mail: email.email,
+                password: password,
+                name: name,
+                surname: surname,
+                msidn: phone,
+            }
+            const myVoidFunction = (callback) => {
+                // Do something...
+                callback();
+            }
+             register(credentials).then((response) => {
+                console.log("success register redirect to otp");
+                sessionStorage.setItem('registerMail', email.email);
+                sessionStorage.setItem('operation', 'register');
+                history.push('/auth/otp');
+            }).catch((error) => {
+                alert("error");
+            });
+        }
     };
+
 
     const handleChangeEmail = (event: string) => {
         if (!isValidEmail(event)) {
@@ -48,7 +76,8 @@ const Signup = () => {
                 onSubmit={handleSubmit}
                 style={{display: "flex", flexDirection: "column", maxWidth: "300px"}}
             >
-                <DatePicker value={birthDay} onChange={setBirthDay}/>
+                <label htmlFor="birthDay">Birthday:</label>
+                <DatePicker id="birthDay" value={birthDay} onChange={setBirthDay} />
                 <TextInput
                     label="Name"
                     value={name}
@@ -92,7 +121,7 @@ const Signup = () => {
                 <div style={{display: "flex", justifyContent: "space-between"}}>
                     <div>
                         <Button type="submit" style={{flexGrow: 1}}>
-                            Login
+                            Register
                         </Button>
                     </div>
                     <div style={{width: "16px"}}/>
