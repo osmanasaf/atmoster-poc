@@ -22,6 +22,6 @@ export const forgotPassword = (email: string) =>
 export const isEmailExist = (email: String) =>
     get("/auth/exist/" + email);
 
-export const verifyRegister = (email: string, otp: string) =>
+export const verifyRegister = (email: string | null, otp: string) =>
     put("/auth/register-verification/mail/" + email + '/code/' + otp);
 
