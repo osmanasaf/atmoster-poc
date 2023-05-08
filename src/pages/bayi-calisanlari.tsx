@@ -1,8 +1,8 @@
 import {Table, Text} from "@mantine/core";
 import React, {useEffect, useState} from "react";
-import {registerUser, userUpdateRole} from "../service/auth.service";
 import {RoleEnum} from "../dto/role.enum";
 import UserDto from "../dto/UserDto";
+import {registerUser, userUpdateRole} from "../service/user.service";
 
 const BayiCalisanlari = () => {
     const [bayiCalisanlari, setBayiCalisanlari] = useState<UserDto[]>([]);

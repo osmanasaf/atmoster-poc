@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {getPositionDetail, openPositions, updateUserTechnical} from "../../service/auth.service";
 import {Button, Switch, Table, Text, TextInput} from "@mantine/core";
 import {Modal} from 'antd'
 import {ApprovalStatus, ApproveDto, PositionsApplyDto} from "../../dto/PositionDto"
+import {getPositionApplies, openPositions, updateUserTechnical} from "../../service/position.service";
 
 const TechnicalUser = () => {
     const [position, setPosition] = useState<PositionsApplyDto[]>([]);
@@ -20,7 +20,7 @@ const TechnicalUser = () => {
 
     function positionDetails(positionId: string) {
         setRecoursesModalVisible(true)
-        getPositionDetail(positionId).then((res: any) => {
+        getPositionApplies(positionId).then((res: any) => {
             setPositionDetail(res)
         })
     }

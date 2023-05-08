@@ -1,12 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {
-    getPositionDetail,
-    openPositions,
-    updateUserUcretlendirmePersonel
-} from "../../service/auth.service";
 import {Button, Switch, Table, Text, TextInput} from "@mantine/core";
 import {Modal} from 'antd'
 import {ApprovalStatus, ApproveDto, PositionsApplyDto} from "../../dto/PositionDto"
+import {getPositionApplies, openPositions, updateUserUcretlendirmePersonel} from "../../service/position.service";
 
 const UcretlendirmePersonelUser = () => {
     const [position, setPosition] = useState<PositionsApplyDto[]>([]);
@@ -24,7 +20,7 @@ const UcretlendirmePersonelUser = () => {
 
     function positionDetails(positionId: string) {
         setRecoursesModalVisible(true)
-        getPositionDetail(positionId).then((res: any) => {
+        getPositionApplies(positionId).then((res: any) => {
             setPositionDetail(res)
         })
     }

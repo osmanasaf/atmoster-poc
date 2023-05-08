@@ -1,5 +1,4 @@
 import {useEffect, useState} from "react";
-import {getRequest} from "../../service/auth.service";
 import {Button, Table, Text, Switch, TextInput,} from '@mantine/core'; // import Switch component
 import React from "react";
 import {useHistory} from "react-router-dom";
@@ -11,6 +10,7 @@ interface positionDto {
     numberOfRecourse: number
     title: string
 }
+
 const Position = () => {
 
     const [name, setName] = useState('');
@@ -29,15 +29,12 @@ const Position = () => {
         }
         setAddress(event);
     };
-        const history = useHistory();
-        const [serviceData, setServiceData] = useState<positionDto[]>([]);
-        const [switchState, setSwitchState] = useState(false); // create a state for the switch
+    const history = useHistory();
+    const [serviceData, setServiceData] = useState<positionDto[]>([]);
+    const [switchState, setSwitchState] = useState(false); // create a state for the switch
 
-        useEffect(() => {
-        getRequest().then((res:any) => setServiceData(res));
-    }, [])
 
-    const handleClick = (e : any) => {
+    const handleClick = (e: any) => {
         setIsModalVisible(true)
     };
 
@@ -47,18 +44,17 @@ const Position = () => {
 
     const [isModalVisible, setIsModalVisible] = useState(false);
 
-    const handleSwitchChange = () => { // create a handler for the switch change
-        setSwitchState(!switchState); // toggle the switch state
-        // do something based on the switch state
+    const handleSwitchChange = () => {
+        setSwitchState(!switchState);
         if (switchState) {
-            // switch is on
         } else {
-            // switch is off
         }
     }
+
     function handleHide() {
         setIsModalVisible(false)
     }
+
     return (
         <div>
             <div
@@ -74,7 +70,7 @@ const Position = () => {
                 <Text align="center" weight={700} size="lg">
                     Pozisyonlar
                 </Text>
-                <Button type="submit" onClick={handleClick} >
+                <Button type="submit" onClick={handleClick}>
                     Pozisyon Oluştur
                 </Button>
             </div>
@@ -90,7 +86,8 @@ const Position = () => {
                 {serviceData?.map((item) => (
                     <tr key={item.id}>
                         <td onClick={() => positionDetails(item.id)}>{item.title}</td>
-                        <td><Switch checked={switchState} onChange={handleSwitchChange} /> {/* add a switch component */}</td>
+                        <td><Switch checked={switchState} onChange={handleSwitchChange}/> {/* add a switch component */}
+                        </td>
                     </tr>
                 ))}
                 </tbody>
@@ -103,13 +100,13 @@ const Position = () => {
                             onSubmit={handleSubmit}
                             style={{display: "flex", flexDirection: "column", maxWidth: "300px"}}
                         >
-                            <div style={{display:"flex"}}>
+                            <div style={{display: "flex"}}>
                                 <TextInput
                                     label="Name"
                                     value={name}
                                     onChange={(e) => setName(e.currentTarget.value)}
                                     required
-                                    style={{marginBottom: "8px",marginRight: "5px"}}
+                                    style={{marginBottom: "8px", marginRight: "5px"}}
                                 />
                                 <TextInput
                                     label="Surname"
@@ -124,14 +121,14 @@ const Position = () => {
                                 value={description}
                                 onChange={(e) => setDescription(e.currentTarget.value)}
                                 required
-                                style={{marginBottom: "8px",marginRight: "5px"}}
+                                style={{marginBottom: "8px", marginRight: "5px"}}
                             />
                             <TextInput
                                 label="Address"
                                 value={address}
                                 onChange={(e) => handleChangeAddress(e.currentTarget.value)}
                                 required
-                                style={{marginBottom: "8px",marginRight: "5px"}}
+                                style={{marginBottom: "8px", marginRight: "5px"}}
                             />
                             <div
                                 style={{
