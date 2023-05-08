@@ -5,8 +5,6 @@ import {useHistory} from "react-router-dom";
 import {PositionDto, PositionStatusEnum, WorkTypeEnum} from "../../dto/PositionDto";
 import {createPosition, openPositions} from "../../service/position.service";
 import {Modal} from "antd";
-import {RoleEnum} from "../../dto/role.enum";
-import {userUpdateRole} from "../../service/user.service";
 
 const AdminUser = () => {
     const history = useHistory();
@@ -16,15 +14,20 @@ const AdminUser = () => {
     const [surname, setSurname] = useState('');
     const [address, setAddress] = useState('');
     const [description, setDescription] = useState('');
-    const [error, setError] = useState('');
     const [workType, setWorkType] = useState<WorkTypeEnum>();
+
     useEffect(() => {
-        getPositions()
-    })
+        if (position.length === 0) {
+            getPositions()
+        }
+    });
 
 
     function getPositions() {
-        openPositions().then((res: any) => setPosition(res));
+        openPositions().then((res: any) => {
+            setPosition(res.data)
+            console.log(position);
+        });
     }
 
     const positionDetails = (id: string | undefined) => {
@@ -93,12 +96,12 @@ const AdminUser = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {position?.length > 0 ? position?.map((item) => (
+                {position?.map((item) => (
                     <tr key={item.id}>
                         <td onClick={() => positionDetails(item.id)}>{item.name}</td>
                         <td>{item.applicantCount}</td>
                     </tr>
-                )) : false}
+                ))}
                 </tbody>
             </Table>
 
