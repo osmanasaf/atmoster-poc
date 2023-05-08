@@ -74,7 +74,6 @@ function OtpInput() {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(otp);
     };
 
     const [timer, setTimer] = useState(120);
@@ -83,8 +82,6 @@ function OtpInput() {
     useEffect(() => {
         timer > 0 && setTimeout(timeOutCallback, 1000);
     }, [timer, timeOutCallback]);
-
-    console.log(timer);
 
     function resendLogin() {
         const email = sessionStorage.getItem("email");

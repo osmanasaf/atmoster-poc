@@ -12,6 +12,7 @@ import ForgotPasswordForm from "./ForgotPassword";
 import TechnicalUser from "../Home/technical-user";
 import UcretlendirmePersonelUser from "../Home/ucretlendirme-personel-user";
 import AdminUser from "../Home/admin-user";
+import Position from "../Position/positions";
 
 const Auth: React.FC = () => {
     return (
@@ -23,7 +24,8 @@ const Auth: React.FC = () => {
                 <Route path="/auth/otp" component={OtpInput}/>
                 <Route path="/auth/forgot-password" component={ForgotPasswordForm}/>
                 <Redirect to="/auth/login"/>
-                <Route path="/position/detail" component={PositionDetails}/>
+                <Route path="/position/detail/:id" component={PositionDetails}/>
+                <Route path="/position" component={Position}/>
                 <Route path="/bayi-calisanlari" component={BayiCalisanlari}/>
                 <Route path="/admin" component={AdminUser}/>
                 <Route path="/hr-user" component={HrUser}/>

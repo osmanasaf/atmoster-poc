@@ -14,8 +14,8 @@ const AdminUser = () => {
         });
     }, [])
 
-    const positionDetails = () => {
-        history.push(`/position/detail`)
+    const positionDetails = (id: string) => {
+        history.push(`/position/detail/${id}`)
     }
 
     return (
@@ -31,7 +31,7 @@ const AdminUser = () => {
                 }}
             >
                 <Text align="center" weight={700} size="lg">
-                    Pozisyonlar
+                    Pozisyonlar Admin Panel
                 </Text>
             </div>
             <Table striped highlightOnHover>
@@ -44,7 +44,7 @@ const AdminUser = () => {
                 <tbody>
                 {position?.map((item) => (
                     <tr key={item.id}>
-                        <td onClick={positionDetails}>{item.name}</td>
+                        <td onClick={() => positionDetails(item.id)}>{item.name}</td>
                         <td>{item.applicantCount}</td>
                     </tr>
                 ))}
