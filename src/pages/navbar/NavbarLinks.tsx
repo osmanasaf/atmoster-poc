@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Icon from '@tabler/icons-react';
-import { ThemeIcon, UnstyledButton, Group, Text } from '@mantine/core';
-import { useHistory } from 'react-router-dom';
+import {ThemeIcon, UnstyledButton, Group, Text} from '@mantine/core';
+import {useHistory} from 'react-router-dom';
 
 interface NavbarLinksProps {
     icon: React.ReactNode;
@@ -10,7 +10,7 @@ interface NavbarLinksProps {
     redirectTo: string;
 }
 
-function NavbarMainLinks({ icon, color, label, redirectTo }: NavbarLinksProps) {
+function NavbarMainLinks({icon, color, label, redirectTo}: NavbarLinksProps) {
     const history = useHistory();
     const handleClick = () => {
         history.push(redirectTo);
@@ -37,19 +37,24 @@ function NavbarMainLinks({ icon, color, label, redirectTo }: NavbarLinksProps) {
                     {icon}
                 </ThemeIcon>
 
-                <Text size="sm" >{label}</Text>
+                <Text size="sm">{label}</Text>
             </Group>
         </UnstyledButton>
     );
 }
 
 const data = [
-    { icon: <Icon.IconHome size="1rem" />, color: 'blue', label: 'Admin Panel', redirectTo: "/admin" },
-    { icon: <Icon.IconBuildingCommunity size="1rem" />, color: 'teal', label: 'Employees', redirectTo: "/ucretlendirme-personel-user" },
-    { icon: <Icon.IconBrowserCheck size="1rem" />, color: 'violet', label: 'Positions', redirectTo: "/position/detail" },
+    {icon: <Icon.IconHome size="1rem"/>, color: 'blue', label: 'Admin Panel', redirectTo: "/admin"},
+    {
+        icon: <Icon.IconBuildingCommunity size="1rem"/>,
+        color: 'teal',
+        label: 'Employees',
+        redirectTo: "/bayi-calisanlari"
+    },
+    {icon: <Icon.IconBrowserCheck size="1rem"/>, color: 'violet', label: 'Positions', redirectTo: "/position"},
 ];
 
 export function NavbarLinks() {
-    const links = data.map((link) => <NavbarMainLinks {...link} key={link.label} />);
+    const links = data.map((link) => <NavbarMainLinks {...link} key={link.label}/>);
     return <div>{links}</div>;
 }

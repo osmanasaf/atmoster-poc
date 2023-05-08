@@ -20,7 +20,6 @@ const ForgotPasswordForm: React.FC = () => {
         try {
             var response = await forgotPassword(email);
             setIsCodeSent(true);
-            console.log(response);
             setToken(String(isCodeSent));
         } catch (error) {
             if(error){
