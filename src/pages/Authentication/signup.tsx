@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {Button, TextInput} from "@mantine/core";
 import {DatePicker} from "@mantine/dates";
+import {AdminRegisterDto} from "../../util/auth";
 
 const Signup = () => {
 
@@ -11,6 +12,7 @@ const Signup = () => {
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [register, setRegister] = useState<AdminRegisterDto>()
     const isValidEmail = (email: string) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
     const isValidPhone = (phone: string) => /(^[0\s]?[\s]?)([(]?)([5])([0-9]{2})([)]?)([\s]?)([0-9]{3})([\s]?)([0-9]{2})([\s]?)([0-9]{2})$/g.test(phone);
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
