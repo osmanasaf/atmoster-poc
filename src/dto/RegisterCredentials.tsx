@@ -1,7 +1,9 @@
 interface RegisterCredentials {
-    email: string;
+    mail: string;
     password: string;
     name: string;
+    surname: string;
+    msidn: string;
 }
 
 export default RegisterCredentials;
