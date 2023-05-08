@@ -21,7 +21,7 @@ const Signup = () => {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const response = await isEmailExist(email.email);
-        if(response?.exist){
+        if(response.data.exist){
             setEmail({...email, error: 'email is already exist'});
         }else{
             const credentials: RegisterCredentials = {

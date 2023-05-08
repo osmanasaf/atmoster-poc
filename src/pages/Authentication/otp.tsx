@@ -27,6 +27,7 @@ function OtpInput() {
     async function loginOperation() {
         const email = sessionStorage.getItem("email");
         const password = sessionStorage.getItem("password");
+        // @ts-ignore
         const credentials: VerifyOtp = {username: email, password: password, otp: otp};
         const response = await verifyOtp(credentials);
         var responseString = String(response);
@@ -87,6 +88,7 @@ function OtpInput() {
     function resendLogin() {
         const email = sessionStorage.getItem("email");
         const password = sessionStorage.getItem("password");
+        // @ts-ignore
         const credentials: LoginCredentials = {username: email, password: password};
         login(credentials).then(r =>  {
             setTimer(120);
@@ -104,7 +106,7 @@ function OtpInput() {
         const credentials = sessionStorage.getItem("credentials");
         if (credentials != null) {
             try {
-                const response = await register(credentials);
+                const response = await register(JSON.parse(credentials));
                 setTimer(120);
             } catch (error) {
                 if(timer > 0){
