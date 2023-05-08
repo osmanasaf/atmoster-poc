@@ -12,9 +12,13 @@ export const login = (credentials: LoginCredentials) =>
 export const verifyOtp = (credentials: VerifyOtp) =>
     put("/auth/login-verification", credentials);
 
-export const register = (credentials: RegisterCredentials) =>
-    post("/auth/register-first-step", credentials);
-
+export const register = (credentials: RegisterCredentials) => {
+    return post("/auth/register-first-step", credentials)
+        .then(response => response.data)
+        .catch(error => {
+            throw new Error(error.response.data.message);
+        });
+};
 export const forgotPassword = (email: string) =>
     get("/auth/forgot-and-change-password-link-first-step", {email});
 

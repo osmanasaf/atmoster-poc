@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useCallback } from "react";
 import {Button, TextInput} from "@mantine/core";
 import VerifyOtp from "../../dto/VerifyOtp";
-import {verifyOtp, verifyRegister} from "../../service/auth.service";
+import {login, register, verifyOtp, verifyRegister} from "../../service/auth.service";
 import {useHistory} from "react-router-dom";
 import jwt_decode from "jwt-decode";
+import LoginCredentials from "../../dto/LoginDto";
 
 interface DecodedToken {
     sub: string;
@@ -19,6 +20,7 @@ function OtpInput() {
 
     const handleClick = async (e: any) => {
         e.currentTarget.disabled = true;
+        operation === "null" ? history.push("/auth/login") : null;
         operation === "login" ? await loginOperation() : await registerOperation();
     };
 
@@ -68,7 +70,6 @@ function OtpInput() {
 
     };
 
-
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log(otp);
@@ -83,7 +84,41 @@ function OtpInput() {
 
     console.log(timer);
 
+    function resendLogin() {
+        const email = sessionStorage.getItem("email");
+        const password = sessionStorage.getItem("password");
+        const credentials: LoginCredentials = {username: email, password: password};
+        login(credentials).then(r =>  {
+            setTimer(120);
+        }).catch(e => {
+            if(timer > 0){
+                alert("Doğrulama kodunun süresi dolmadı!");
+            }else{
+                alert("Doğrulama kodu yeniden gönderilirken hata oluştu");
+            }
+            console.error("Doğrulama kodu yeniden gönderilirken hata oluştu:", e);
+        });
+    }
+
+    async function resendRegister() {
+        const credentials = sessionStorage.getItem("credentials");
+        if (credentials != null) {
+            try {
+                const response = await register(credentials);
+                setTimer(120);
+            } catch (error) {
+                if(timer > 0){
+                    alert("Doğrulama kodunun süresi dolmadı!");
+                }else{
+                    alert("Doğrulama kodu yeniden gönderilirken hata oluştu");
+                }
+                console.error("Doğrulama kodu yeniden gönderilirken hata oluştu:", error);
+            }
+        }
+    }
+
     const resetTimer = function () {
+        operation === "login" ? resendLogin() : resendRegister();
         if (!timer) {
             setTimer(120);
         }

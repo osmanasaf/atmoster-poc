@@ -31,12 +31,9 @@ const Signup = () => {
                 surname: surname,
                 msidn: phone,
             }
-            const myVoidFunction = (callback) => {
-                // Do something...
-                callback();
-            }
              register(credentials).then((response) => {
                 console.log("success register redirect to otp");
+                sessionStorage.setItem("credentials", JSON.stringify(credentials));
                 sessionStorage.setItem('registerMail', email.email);
                 sessionStorage.setItem('operation', 'register');
                 history.push('/auth/otp');
