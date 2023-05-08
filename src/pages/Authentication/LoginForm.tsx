@@ -1,20 +1,34 @@
 import React, { useState } from "react";
 import { TextInput, Button } from "@mantine/core";
+import LoginCredentials from "../../dto/LoginDto";
+import {login} from "../../service/auth.service";
+import { useHistory } from "react-router-dom";
 
-interface Props {
-    onLogin: (email: string, password: string) => void;
-    onRegister: () => void;
-    onForgotPassword: () => void;
-}
 
-const LoginForm: React.FC<Props> = ({ onLogin, onRegister, onForgotPassword }) => {
+const LoginForm: React.FC = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const history = useHistory();
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        onLogin(email, password);
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        try {
+            const credentials: LoginCredentials = {email, password};
+            await login(credentials);
+            sessionStorage.setItem("email", email);
+            sessionStorage.setItem("password", password);
+            history.push("/auth/otp")
+        } catch (error) {
+            console.error(error);
+        }
     };
+
+    const redirectToRegister = () => {
+        history.push("/auth/signup");
+    }
+
+    const redirectToForgotPassword = () => {
+        history.push("/auth/forgot-password");
+    }
 
     return (
         <div
@@ -56,7 +70,7 @@ const LoginForm: React.FC<Props> = ({ onLogin, onRegister, onForgotPassword }) =
                     <div>
                         <Button
                             variant="outline"
-                            onClick={onRegister}
+                            onClick={redirectToRegister}
                             style={{ flexGrow: 1 }}
                         >
                             Register
@@ -73,7 +87,7 @@ const LoginForm: React.FC<Props> = ({ onLogin, onRegister, onForgotPassword }) =
                 >
                     <Button
                         variant="link"
-                        onClick={onForgotPassword}
+                        onClick={redirectToForgotPassword}
                         style={{ paddingRight: "0px" }}
                     >
                         Forgot Password?
