@@ -1,33 +1,32 @@
 import {Table, Text} from "@mantine/core";
 import React, {useEffect, useState} from "react";
-import {getRequest} from "../service/auth.service";
-import {RoleEnum} from "../util/role.enum";
-
-interface bayiCalisanlariDto {
-    id: number,
-    name: string,
-    title: string;
-    role: RoleEnum;
-}
+import {registerUser, userUpdateRole} from "../service/auth.service";
+import {RoleEnum} from "../dto/role.enum";
+import UserDto from "../dto/UserDto";
 
 const BayiCalisanlari = () => {
-    const [bayiCalisanlari, setBayiCalisanlari] = useState<bayiCalisanlariDto[]>([]);
+    const [bayiCalisanlari, setBayiCalisanlari] = useState<UserDto[]>([]);
     let roles: string;
-    const roleChange = (userId: number, event: any) => {
-        console.log(bayiCalisanlari);
-        bayiCalisanlari.map(user => {
-                if (user.id === userId) {
-                    user.role = event
-                }
-            }
-        )
-
-    };
     useEffect(() => {
-        getRequest().then((res: any) => {
+        getUser();
+    }, []);
+
+    const roleChange = (mail: string, event: any) => {
+        bayiCalisanlari.map(user => {
+            if (user.mail === mail) {
+                user.ou = event
+                userUpdateRole(mail, event).then((res: any) => {
+                    getUser();
+                })
+            }
+        })
+    };
+    const getUser = () => {
+        registerUser().then((res: any) => {
             setBayiCalisanlari(res);
         });
-    }, [])
+    }
+
     return (
         <div>
             <Text align="center" weight={700} size="lg">
@@ -42,10 +41,10 @@ const BayiCalisanlari = () => {
                 </thead>
                 <tbody>
                 {bayiCalisanlari.map((item) => (
-                    <tr key={item.id}>
-                        <td>{item.title}</td>
+                    <tr key={item.mail}>
+                        <td>{item.mail}</td>
                         <td>
-                            <select value={roles} onChange={(e) => roleChange(item.id, e.target.value)}>
+                            <select value={roles} onChange={(e) => roleChange(item.ou, e.target.value)}>
                                 {Object.keys(RoleEnum).map(key => (
                                     <option key={key} value={key}>
                                         {key}

@@ -1,12 +1,15 @@
 import React, {useEffect, useState} from "react";
-import {getPositionDetail, openPositions, updateUserHr} from "../../service/auth.service";
+import {
+    getPositionDetail,
+    openPositions,
+    updateUserUcretlendirmePersonel
+} from "../../service/auth.service";
 import {Button, Switch, Table, Text, TextInput} from "@mantine/core";
 import {Modal} from 'antd'
-import {ApprovalStatus, ApproveDto, PositionDto, PositionsApplyDto} from "../../dto/PositionDto"
+import {ApprovalStatus, ApproveDto, PositionsApplyDto} from "../../dto/PositionDto"
 
-
-const HrUser = () => {
-    const [position, setPosition] = useState<PositionDto[]>([]);
+const UcretlendirmePersonelUser = () => {
+    const [position, setPosition] = useState<PositionsApplyDto[]>([]);
     const [positionDetail, setPositionDetail] = useState<PositionsApplyDto[]>();
     const [recourseDetail, setRecourseDetail] = useState<PositionsApplyDto>();
     const [isRecoursesModalVisible, setRecoursesModalVisible] = useState(false);
@@ -51,7 +54,7 @@ const HrUser = () => {
     function saveUser() {
         setApproveUser({status: changeSwitch ? ApprovalStatus.APPROVED : ApprovalStatus.REJECTED, message: explanation})
         if (recourseDetail && approveUser) {
-            updateUserHr(recourseDetail.id, approveUser).then((res: any) => {
+            updateUserUcretlendirmePersonel(recourseDetail.id, approveUser).then((res: any) => {
             })
         }
     }
@@ -66,14 +69,14 @@ const HrUser = () => {
                 <thead>
                 <tr>
                     <th>Pozisyon Adı</th>
-                    <th>Başvuru Sayısı</th>
+                    <th>İK Aşamasına Geçmiş Başvuru Sayısı</th>
                 </tr>
                 </thead>
                 <tbody>
                 {position?.map((item) => (
                     <tr key={item.id}>
                         <td onClick={() => positionDetails(item.id)}>{item.name}</td>
-                        <td>{item.applicantCount}</td>
+                        <td>{item.hrApprovalStatus}</td>
                     </tr>
                 ))}
                 </tbody>
@@ -138,5 +141,5 @@ const HrUser = () => {
     );
 }
 
-export default HrUser;
+export default UcretlendirmePersonelUser;
 

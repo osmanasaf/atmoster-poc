@@ -9,6 +9,8 @@ import PositionDetails from "../Position/position-details";
 import BayiCalisanlari from "../bayi-calisanlari";
 import HrUser from "../Home/hr-user";
 import ForgotPasswordForm from "./ForgotPassword";
+import TechnicalUser from "../Home/technical-user";
+import UcretlendirmePersonelUser from "../Home/ucretlendirme-personel-user";
 
 const Auth: React.FC = () => {
     return (
@@ -22,13 +24,15 @@ const Auth: React.FC = () => {
                 <Route path="/position/detail/:id" component={PositionDetails}/>
                 <Route path="/bayi-calisanlari" component={BayiCalisanlari}/>
                 <Route path="/hr-user" component={HrUser}/>
+                <Route path="/technical-user" component={TechnicalUser}/>
+                <Route path="/ucretlendirme-personel-user" component={UcretlendirmePersonelUser}/>
             </Switch>
         </Container>
     );
 };
 
 const App: React.FC = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(true);
 
     const handleLogin = (email: string, password: string) => {
         //  check user is logged in or not

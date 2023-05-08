@@ -1,26 +1,20 @@
 import {useEffect, useState} from "react";
-import {getRequest} from "../../service/auth.service";
+import {openPositions} from "../../service/auth.service";
 import {Table, Text} from '@mantine/core';
 import React from "react";
 import {useHistory} from "react-router-dom";
-
-interface positionDto {
-    id: number
-    positionName: string
-    numberOfRecourse: number
-    title: string
-}
+import {PositionDto} from "../../dto/PositionDto";
 
 const AdminUser = () => {
     const history = useHistory();
-    const [position, setPosition] = useState<positionDto[]>([]);
+    const [position, setPosition] = useState<PositionDto[]>([]);
 
 
     useEffect(() => {
-        getRequest().then((res: any) => setPosition(res));
+        openPositions().then((res: any) => setPosition(res));
     }, [])
 
-    const positionDetails = (id: number) => {
+    const positionDetails = (id: string) => {
         history.push(`/position/detail/${id}`)
     }
     return (
@@ -38,9 +32,8 @@ const AdminUser = () => {
                 <tbody>
                 {position?.map((item) => (
                     <tr key={item.id}>
-                        <td onClick={() => positionDetails(item.id)}>{item.title}</td>
-                        <td>{item.positionName}</td>
-                        <td>{item.numberOfRecourse}</td>
+                        <td onClick={() => positionDetails(item.id)}>{item.name}</td>
+                        <td>{item.applicantCount}</td>
                     </tr>
                 ))}
                 </tbody>

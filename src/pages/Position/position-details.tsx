@@ -1,13 +1,13 @@
 import {Text} from "@mantine/core";
 import React, {useEffect} from "react";
-import {getPosition} from "../../service/auth.service";
+import {getAllPosition} from "../../service/auth.service";
 
 const PositionDetails = () => {
     const url = window.location.pathname;
     const positionID = url.split('/')[3];
 
     useEffect(() => {
-        getPosition(Number(positionID)).then((res) => {
+        getAllPosition(positionID).then((res) => {
             const position = res
         })
     })
