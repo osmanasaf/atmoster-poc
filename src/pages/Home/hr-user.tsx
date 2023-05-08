@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {getPositionDetail, openPositions, updateUserHr} from "../../service/auth.service";
 import {Button, Switch, Table, Text, TextInput} from "@mantine/core";
 import {Modal} from 'antd'
 import {ApprovalStatus, ApproveDto, PositionDto, PositionsApplyDto} from "../../dto/PositionDto"
-
+import {getPositionApplies, openPositions, updateUserHr} from "../../service/position.service";
 
 const HrUser = () => {
     const [position, setPosition] = useState<PositionDto[]>([]);
@@ -19,9 +18,9 @@ const HrUser = () => {
         openPositions().then((res: any) => setPosition(res));
     }, [])
 
-    function positionDetails(positionId: string) {
+    function positionDetails(positionId: string | undefined) {
         setRecoursesModalVisible(true)
-        getPositionDetail(positionId).then((res: any) => {
+        getPositionApplies(positionId).then((res: any) => {
             setPositionDetail(res)
         })
     }
@@ -70,12 +69,12 @@ const HrUser = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {position?.map((item) => (
+                {position.length > 0 ? position.map((item) => (
                     <tr key={item.id}>
                         <td onClick={() => positionDetails(item.id)}>{item.name}</td>
                         <td>{item.applicantCount}</td>
                     </tr>
-                ))}
+                )) : false}
                 </tbody>
             </Table>
 

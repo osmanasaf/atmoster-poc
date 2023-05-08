@@ -4,6 +4,7 @@ import React from "react";
 import {NavbarLinks} from "../navbar/NavbarLinks";
 import {User} from "../navbar/User";
 import HrUser from "./hr-user";
+import AdminUser from "./admin-user";
 
 
 
@@ -55,7 +56,7 @@ const HomePage = () => {
             }
         >
             <div>
-                <HrUser></HrUser>
+                <AdminUser></AdminUser>
             </div>
         </AppShell>
     );
