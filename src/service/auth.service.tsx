@@ -10,8 +10,18 @@ export const postRequest = (body?: any, param?: any) => {
     return post('url', body, param);
 }
 
-export const getPosition = (positionID: string) => {
+export const getPosition = (positionID: number) => {
     return get(authUrl, positionID);
+}
+
+
+export const getRecourseDetail = (userId: number) => {
+    return get(authUrl, userId);
+}
+
+
+export const adminRegister = () => {
+
 }
 
 

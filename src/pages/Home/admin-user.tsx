@@ -4,7 +4,6 @@ import {Table, Text} from '@mantine/core';
 import React from "react";
 import {useHistory} from "react-router-dom";
 
-
 interface positionDto {
     id: number
     positionName: string
@@ -14,11 +13,11 @@ interface positionDto {
 
 const AdminUser = () => {
     const history = useHistory();
-    const [serviceData, setServiceData] = useState<positionDto[]>([]);
+    const [position, setPosition] = useState<positionDto[]>([]);
 
 
     useEffect(() => {
-        getRequest().then((res) => setServiceData(res));
+        getRequest().then((res: any) => setPosition(res));
     }, [])
 
     const positionDetails = (id: number) => {
@@ -37,7 +36,7 @@ const AdminUser = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {serviceData?.map((item) => (
+                {position?.map((item) => (
                     <tr key={item.id}>
                         <td onClick={() => positionDetails(item.id)}>{item.title}</td>
                         <td>{item.positionName}</td>
