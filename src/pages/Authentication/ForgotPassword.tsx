@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { TextInput, Button, Text } from "@mantine/core";
-import {changeForgotPassword, forgotPassword} from "../../service/auth.service";
-import ChangePasswordDto from "../../dto/ChangePasswordDto";
 import {useHistory} from "react-router-dom";
 import {forgotPassword} from "../../service/auth.service";
 import {changeForgotPassword} from "../../service/user.service";
