@@ -37,6 +37,7 @@ const Auth: React.FC = () => {
 const App: React.FC = () => {
     const isLoggedIn = () => {
         const token = localStorage.getItem('token');
+        console.log(token)
         return token;
     };
 

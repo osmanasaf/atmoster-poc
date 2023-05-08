@@ -31,7 +31,7 @@ baseService.interceptors.response.use(
     },
     function (error) {
         // TODO: Do proper error handling here (logout user, etc)
-        console.error(error)
+        return Promise.reject(error);
     }
 )
 export const getPosition = (url: string, params?: {}) => {

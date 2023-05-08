@@ -15,11 +15,11 @@ interface DecodedToken {
 
 function OtpInput() {
     const [message, setMessage] = useState(false);
-    const operation = sessionStorage.getItem("operation");
     const history = useHistory();
 
     const handleClick = async (e: any) => {
         e.currentTarget.disabled = true;
+        const operation = sessionStorage.getItem("operation");
         operation === "null" ? history.push("/auth/login") : null;
         operation === "login" ? await loginOperation() : await registerOperation();
     };

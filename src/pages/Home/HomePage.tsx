@@ -7,6 +7,7 @@ import HrUser from "./hr-user";
 import AdminUser from "./admin-user";
 import TechnicalUser from "./technical-user";
 import UcretlendirmePersonelUser from "./ucretlendirme-personel-user";
+import { useLocation } from 'react-router-dom';
 
 
 const HomePage = () => {
@@ -15,6 +16,12 @@ const HomePage = () => {
     const [opened, setOpened] = useState(false);
 
     let userRole = localStorage.getItem('role')
+
+    const getUrl = () => {
+        const location = useLocation();
+        return location.pathname;
+    }
+
     return (
         <AppShell
             styles={{
@@ -58,10 +65,10 @@ const HomePage = () => {
             }
         >
             <div>
-                {userRole === 'ADMIN' ? <AdminUser></AdminUser> : false}
-                {userRole === 'HR' ? <HrUser></HrUser> : false}
-                {userRole === 'PRICING' ? <UcretlendirmePersonelUser></UcretlendirmePersonelUser> : false}
-                {userRole === 'TECHNICAL' ? <TechnicalUser></TechnicalUser> : false}
+                {getUrl() === '/admin' ? <AdminUser></AdminUser> : false}
+                {getUrl() === '/hr-user' ? <HrUser></HrUser> : false}
+                {getUrl() === '/technical-user' ? <TechnicalUser></TechnicalUser> : false}
+                {getUrl() === '/ucretlendirme-personel-user' ? <UcretlendirmePersonelUser></UcretlendirmePersonelUser> : false}
             </div>
         </AppShell>
     );
