@@ -3,16 +3,11 @@ import {AppShell, Burger, Header, MediaQuery, Navbar, useMantineTheme} from '@ma
 import React from "react";
 import {NavbarLinks} from "../navbar/NavbarLinks";
 import {User} from "../navbar/User";
-import AdminUser from "./admin-user";
-import PositionDetails from "../Position/position-details";
-import BayiCalisanlari from "../bayi-calisanlari";
 import HrUser from "./hr-user";
 
-type HomePageProps = {
-    onLogout: () => void;
-};
 
-const HomePage = ({onLogout}: HomePageProps) => {
+
+const HomePage = () => {
 
     const theme = useMantineTheme();
     const [opened, setOpened] = useState(false);

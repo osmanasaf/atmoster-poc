@@ -44,20 +44,13 @@ const App: React.FC = () => {
         }
     };
 
-    const handleLogout = () => {
-        setIsLoggedIn(false);
-    };
-
     return (
         <Router>
             <div style={{maxWidth: 600, margin: "auto", padding: "16px"}}>
-                <header style={{display: "flex", justifyContent: "flex-end", marginBottom: "16px"}}>
-                    {isLoggedIn && <Button onClick={handleLogout}>Logout</Button>}
-                </header>
                 <Switch>
                     <Route path="/auth" component={Auth}/>
                     <Route path="/">
-                        {isLoggedIn ? <HomePage onLogout={handleLogout}/> : <Redirect to="/auth/login"/>}
+                        {isLoggedIn ? <HomePage/> : <Redirect to="/auth/login"/>}
                     </Route>
                 </Switch>
             </div>
