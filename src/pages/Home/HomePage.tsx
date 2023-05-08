@@ -15,7 +15,7 @@ type HomePageProps = {
 const HomePage = ({onLogout}: HomePageProps) => {
 
     const theme = useMantineTheme();
-    const [opened, setOpened] = useState(true);
+    const [opened, setOpened] = useState(false);
 
     return (
         <AppShell
