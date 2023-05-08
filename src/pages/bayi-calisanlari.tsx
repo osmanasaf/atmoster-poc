@@ -23,7 +23,7 @@ const BayiCalisanlari = () => {
     };
     const getUser = () => {
         registerUser().then((res: any) => {
-            setBayiCalisanlari(res);
+            setBayiCalisanlari(res.data);
         });
     }
 
